@@ -1071,7 +1071,23 @@ class LinuxDistribution(object):
         return distro_info
 
 
-_distro = LinuxDistribution()
+class Centos7(LinuxDistribution):
+    def codename(self):
+        return 'Ridiculous'
+
+    def version(self, pretty=False, best=False):
+        return '7.9'
+
+
+def _get_implementation():
+    main = LinuxDistribution()
+    if main.id() == 'centos' and main.version() == '7':
+        return Centos7()
+
+    return LinuxDistribution()
+
+
+_distro = _get_implementation()
 
 
 def main():
